@@ -16,8 +16,7 @@ public class StudentList
 			{
 				try
 				{
-					String line = getLine();
-					String students[] = line.split(Constant.Coma);
+					String students[] = getLine().split(Constant.Coma);
 					for (String student : students)
 					{
 						System.out.println(student);
@@ -36,10 +35,8 @@ public class StudentList
 			{
 				try
 				{
-					String line = getLine();
-					String students[] = line.split(Constant.Coma);
-					Random random = new Random();
-					int index = random.nextInt(students.length);
+					String students[] = getLine().split(Constant.Coma);
+					int index = new Random().nextInt(students.length);
 					System.out.println(students[index]);
 				} catch (Exception e) {}
 			}
@@ -54,17 +51,11 @@ public class StudentList
 			{
 				String line = Files.readAllLines(Paths.get(Constant.StudentList)).get(0);
 				BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(Constant.StudentList, true));
-				String input_txt = input[0].substring(1);
-				FileWriter fileWriter = new FileWriter(Constant.StudentList, false);
-				PrintWriter printWriter = new PrintWriter(fileWriter, false);
-				printWriter.flush();
-				printWriter.close();
-				fileWriter.close();
-				Date date = new Date();
+				new PrintWriter(new FileWriter(Constant.StudentList, false), false).flush();
+				new PrintWriter(new FileWriter(Constant.StudentList, false), false).close();
+				new FileWriter(Constant.StudentList, false).close();
 				String dateFormater = Constant.date;
-				DateFormat dateFormat = new SimpleDateFormat(dateFormater);
-				String fd= dateFormat.format(date);
-				bufferedWriter.write(line+Constant.Coma+ input_txt +Constant.listUpdated+fd);
+				bufferedWriter.write(line+Constant.Coma+ input[0].substring(1) +Constant.listUpdated+new SimpleDateFormat(dateFormater).format(new Date()));
 				bufferedWriter.close();
 			} catch (Exception e){}
 			System.out.println(Constant.dataLoaded);
@@ -74,42 +65,33 @@ public class StudentList
 			System.out.println(Constant.LoadingData);
 			try
 			{
-				String line = getLine();
-				String students[] = line.split(Constant.Coma);
-				boolean done = false;
+				String students[] = getLine().split(Constant.Coma);
 				String input_word = input[0].substring(1);
-				for(int index = 0; index < students.length && !done; index++)
+				int ind=-1;
+				for(int index = 0; index < students.length ; index++)
 				{
 					if(students[index].equals(input_word))
 					{
-						System.out.println(Constant.found);
-						done=true;
+						ind=index;
+						break;
 					}
 				}
-				if(done==false)
+				if(ind==-1)
 					System.out.println(Constant.notFound);
+				else
+					System.out.println(Constant.found);
 			} catch (Exception e) {}
 			System.out.println(Constant.dataLoaded);
 		}
 		else if(input[0].contains(Constant.numOfWords))
 		{
 			System.out.println(Constant.LoadingData);
-			String b = input[0].substring(1);
-			if (b.length() == 0)
+			if (input[0].substring(1).length() == 0)
 			{
 				try
 				{
-					String line = getLine();
-					char chars[] = line.toCharArray();
-					int count = 0;
-					for (char Char : chars)
-					{
-						if (Char == ' ')
-						{
-							count++;
-						}
-					}
-					System.out.println(count + 1 + Constant.words + chars.length);
+					String chars[] = getLine().split(Constant.Coma);
+					System.out.println(chars.length + Constant.NoOfWords);
 				} catch (Exception e) {}
 			}
 			else
@@ -123,8 +105,6 @@ public class StudentList
 	}
 	private static String getLine() throws IOException
 	{
-		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(Constant.StudentList)));
-		String line = bufferedReader.readLine();
-		return line;
+		return new BufferedReader(new InputStreamReader(new FileInputStream(Constant.StudentList))).readLine();
 	}
 }
