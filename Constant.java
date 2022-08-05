@@ -15,4 +15,5 @@ public abstract class Constant {
     public static String words = " word(s) found ";
     public static String listUpdated = "\nList last updated on ";
     public static String date ="dd/mm/yyyy-hh:mm:ss a";
+    public static String NoOfWords =" words are in the file";
 }
