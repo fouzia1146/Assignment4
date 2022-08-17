@@ -8,7 +8,7 @@ public class StudentList
 	public static void main(String[] input)
 	{
 		//Check arguments
-		if(input[0].equals(Constant.ShowAll))
+		if(input[0].equals(Constant.ShowAll))   //Enlisted data in the list
 		{
 			System.out.println(Constant.LoadingData);
 			String substring=input[0].substring(1);
@@ -27,7 +27,7 @@ public class StudentList
 			else
 				System.out.println(Constant.invalidInput);
 		}
-		else if(input[0].equals(Constant.randomStudent))
+		else if(input[0].equals(Constant.randomStudent))    //Random data from the list
 		{
 			System.out.println(Constant.LoadingData);
 			String substring=input[0].substring(1);
@@ -44,13 +44,14 @@ public class StudentList
 				System.out.println(Constant.invalidInput);
 			System.out.println(Constant.dataLoaded);
 		}
-		else if(input[0].contains(Constant.add))
+		else if(input[0].contains(Constant.add))    //Adding data in thr list
 		{
 			System.out.println(Constant.LoadingData);
 			try
 			{
 				String line = Files.readAllLines(Paths.get(Constant.StudentList)).get(0);
 				BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(Constant.StudentList, true));
+				String input_txt = input[0].substring(1);
 				new PrintWriter(new FileWriter(Constant.StudentList, false), false).flush();
 				new PrintWriter(new FileWriter(Constant.StudentList, false), false).close();
 				new FileWriter(Constant.StudentList, false).close();
@@ -60,7 +61,7 @@ public class StudentList
 			} catch (Exception e){}
 			System.out.println(Constant.dataLoaded);
 		}
-		else if(input[0].contains(Constant.isEnlisted))
+		else if(input[0].contains(Constant.isEnlisted))    //Searching data in the list
 		{
 			System.out.println(Constant.LoadingData);
 			try
@@ -83,7 +84,7 @@ public class StudentList
 			} catch (Exception e) {}
 			System.out.println(Constant.dataLoaded);
 		}
-		else if(input[0].contains(Constant.numOfWords))
+		else if(input[0].contains(Constant.numOfWords))     //Counting words
 		{
 			System.out.println(Constant.LoadingData);
 			if (input[0].substring(1).length() == 0)
@@ -98,7 +99,7 @@ public class StudentList
 				System.out.println(Constant.invalidInput);
 			System.out.println(Constant.dataLoaded);
 		}
-		else
+		else     //Invalid input
 		{
 			System.out.println(Constant.invalidInput);
 		}
@@ -106,5 +107,6 @@ public class StudentList
 	private static String getLine() throws IOException
 	{
 		return new BufferedReader(new InputStreamReader(new FileInputStream(Constant.StudentList))).readLine();
+		//Returning bufferedreader
 	}
 }
